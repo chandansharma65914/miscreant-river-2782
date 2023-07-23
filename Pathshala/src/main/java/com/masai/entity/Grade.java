@@ -2,6 +2,7 @@ package com.masai.entity;
 
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,29 +12,32 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "enrollment")
-public class Enrollment {
+@Table(name = "grade")
+public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(nullable = false)
+    private int score;
+
     @ManyToOne
-    @JoinColumn(name = "course_id")
-    private Course course;
+    @JoinColumn(name = "assignment_id")
+    private Assignment assignment;
 
     @ManyToOne
     @JoinColumn(name = "student_id")
     private Student student;
 
-	public Enrollment() {
+	public Grade() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Enrollment( Course course, Student student) {
+	public Grade(int score, Assignment assignment, Student student) {
 		super();
-	
-		this.course = course;
+		this.score = score;
+		this.assignment = assignment;
 		this.student = student;
 	}
 
@@ -45,12 +49,20 @@ public class Enrollment {
 		this.id = id;
 	}
 
-	public Course getCourse() {
-		return course;
+	public int getScore() {
+		return score;
 	}
 
-	public void setCourse(Course course) {
-		this.course = course;
+	public void setScore(int score) {
+		this.score = score;
+	}
+
+	public Assignment getAssignment() {
+		return assignment;
+	}
+
+	public void setAssignment(Assignment assignment) {
+		this.assignment = assignment;
 	}
 
 	public Student getStudent() {
@@ -63,8 +75,9 @@ public class Enrollment {
 
 	@Override
 	public String toString() {
-		return "Enrollment [id=" + id + ", course=" + course + ", student=" + student + "]";
+		return "Grade [id=" + id + ", score=" + score + ", assignment=" + assignment + ", student=" + student + "]";
 	}
 
-    
+  
 }
+

@@ -2,6 +2,7 @@ package com.masai.entity;
 
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,38 +12,42 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "enrollment")
-public class Enrollment {
+@Table(name = "lesson")
+public class Lesson {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false)
+    private String title;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private Student student;
-
-	public Enrollment() {
+	public Lesson() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Enrollment( Course course, Student student) {
+	public Lesson( String title, Course course) {
 		super();
-	
+		
+		this.title = title;
 		this.course = course;
-		this.student = student;
 	}
 
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 
 	public Course getCourse() {
@@ -53,17 +58,9 @@ public class Enrollment {
 		this.course = course;
 	}
 
-	public Student getStudent() {
-		return student;
-	}
-
-	public void setStudent(Student student) {
-		this.student = student;
-	}
-
 	@Override
 	public String toString() {
-		return "Enrollment [id=" + id + ", course=" + course + ", student=" + student + "]";
+		return "Lesson [id=" + id + ", title=" + title + ", course=" + course + "]";
 	}
 
     
